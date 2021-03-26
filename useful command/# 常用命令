@@ -1,0 +1,33 @@
+# 常用命令
+## kudu
+### 删表
+    kudu table delete cdh01 kudu_sink_for_os_questionnaire_options
+## hive
+### 删表
+    alter table for_ods.ods_for_os_user_orders_t_15 set tblproperties('EXTERNAL' = 'FALSE');
+    drop table for_ods.ods_for_os_user_orders_t_15;
+### 排查数据差异
+select count (* ) from  for_ods.ods_for_os_user_orders_t_15 where created_at < '2021-02-13';、
+
+## mysql
+### 更改字段
+ALTER  TABLE vika_mp_count_t MODIFY COLUMN wx_app_id VARCHAR(256) COMMENT '微信appId'
+
+## hdfs
+
+  hadoop fs -rm -r -f /user/hive/warehouse/for_ods.db/ods_for_os_flash_user_classroom_progress_records_t
+## kafka
+### 删topic
+
+ kafka-topics --delete --topic common_dev.external_data.zmb_order_detail --zookeeper cdh04:2181
+
+ ### 创建
+ kafka-topics --create --bootstrap-server cdh04:9092 --topic common_test_mysql_16.test.au_2010_user_test --replication-factor 3 --partitions 16
+
+ ### 消费
+kafka-console-consumer --bootstrap-server 192.168.6.82:9093 --topic polardb_small1.for_os.user_has_services --from-beginning
+ 
+
+ ## pg 
+ ### 添加注释
+  comment on column public.dm_wechat_user_friend_relation_backup_t.assistant_id is '助教id';
